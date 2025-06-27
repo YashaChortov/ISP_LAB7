@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewModels="clr-namespace:ContestManager.UI.ViewModels"
+             x:Class="ContestManager.UI.Pages.ParticipantDetailsPage"
+             x:DataType="viewModels:ParticipantDetailsViewModel"
+             Title="Участник">
+
+    <ScrollView Padding="10">
+        <StackLayout Spacing="10">
+            <Frame>
+                <StackLayout Spacing="10">
+                    <Label Text="{Binding Participant.Name}" 
+                           FontSize="18" FontAttributes="Bold"/>
+
+                    <Label Text="{Binding Participant.Institution}"/>
+
+                    <Grid ColumnDefinitions="Auto, *">
+                        <Label Text="Возраст:" Grid.Column="0"/>
+                        <Label Text="{Binding Participant.Age}" Grid.Column="1"/>
+
+                        <Label Text="Баллы:" Grid.Column="0" Grid.Row="1"/>
+                        <Label Text="{Binding Participant.VoteScore}" 
+                               TextColor="{Binding Participant.VoteScore, 
+                                   Converter={StaticResource ScoreToColorConverter}}"
+                               FontAttributes="Bold"
+                               Grid.Column="1" Grid.Row="1"/>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+            <Button Text="Увеличить баллы на 1"
+                    Command="{Binding UpdateParticipantScoreCommand}"
+                    CommandParameter="{Binding Participant.VoteScore + 1}"/>
+
+            <Button Text="Уменьшить баллы на 1"
+                    Command="{Binding UpdateParticipantScoreCommand}"
+                    CommandParameter="{Binding Participant.VoteScore - 1}"/>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>
